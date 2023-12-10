@@ -1,4 +1,4 @@
-import BtnComponent from './Components/btnComponent'
+import BtnComponent from './Components/BtnComponent'
 
 function App() {
   return (
