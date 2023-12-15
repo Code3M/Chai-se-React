@@ -1,9 +1,15 @@
 #converterfield{
-    background-color: #86827f8f;
-    height: 390px;
+    background-color: #86827fb0;
+    height: 430px;
     width: 480px;
     margin-top: auto;
     align-items: start;
     align-content: center;
    
+}
+#FromField {
+    background-color: #0000009b;
+}
+#ToField{
+    background-color: #0000009b;
 }

@@ -2,9 +2,29 @@ import { useState } from "react";
 import LogoComponent from "./components/LogoComponent";
 import "./App.css";
 import InputBox from "./components/InputBox";
+import useCurrencyInfo from "./hook/useCurrencyInfo";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [from, setFrom] = useState("usd")
+  const [to, setTo] = useState("inr")
+  const [convertedAmount , setConvertedAmount] = useState(0)
+
+
+  const currencyInfo = useCurrencyInfo(from)
+
+  const options = Object.keys(currencyInfo)
+
+  const swap = () => {
+    setFrom(to)
+    setTo(from)
+    setConvertedAmount(amount)
+    setAmount(convertedAmount)
+  }
+
+  const convert = () => {
+    setConvertedAmount(amount * currencyInfo[to])
+  }
 
   return (
     <>
@@ -15,25 +35,65 @@ function App() {
           backgroundSize: "cover",
         }}
       >
-        <div
-          id="converterfield"
-          className="inline-flex flex-wrap flex-col  rounded-3xl "
+        <form
+          className="mt-28"
+          onSubmit={(e) => {
+            e.preventDefault();
+            convert();
+          }}
         >
-          <h1 className="self-center mb-10 mt-5">Currency converter</h1>
           <div
-            id="FromField"
-            className="inline-flex flex-wrap w-96 h-20  rounded-3xl bg-white justify-evenly"
+            id="converterfield"
+            className="inline-flex flex-wrap flex-col  rounded-3xl "
           >
-            <InputBox lable="Form" />
-          </div>
+            <h1 className="self-center mb-10 mt-3 text-3xl text-[#2C145B]">
+              Currency converter
+            </h1>
 
-          <div
-            id="FromField"
-            className="inline-flex flex-wrap w-96 h-20  rounded-3xl bg-white justify-evenly mt-16"
-          >
-            <InputBox lable="TO" />
+            <div
+              id="FromField"
+              className="inline-flex flex-wrap w-96 h-20  rounded-3xl bg-white justify-evenly"
+            >
+              <InputBox 
+              lable="Form"
+              amount={amount}
+              onAmountChange = {(amount) => setAmount(amount)}
+              selectCurrency = {from}
+              onCurrencyChange = {(from) => setFrom(from)}
+              currencyOption = {options}
+              />
+            </div>
+
+            <button
+              id="SWAP"
+              className="inline-flex flex-wrap  justify-center self-center h-10 w-16 p-2 transform transition-transform hover:scale-105"
+              onClick={swap}
+            >
+              <img src="\src\assets\Swap Logo-PhotoRoom.png-PhotoRoom.png"></img>
+            </button>
+
+            <div
+              id="ToField"
+              className="inline-flex flex-wrap w-96 h-20  rounded-3xl bg-white justify-evenly mt-7"
+            >
+              <InputBox 
+                 lable="To"
+                 amount={convertedAmount}
+                 selectCurrency ={to}
+                 onCurrencyChange = {(to) => setTo(to)}
+                 currencyOption = {options} 
+              />
+            </div>
+            <div className="inline-flex flex-wrap  justify-center self-center mt-8">
+              <button
+                type="submit"
+                className="w-full bg-[#004AAD] text-white px-4 py-3 rounded-3xl transform transition-transform hover:scale-105"
+              >
+                Convert {from} to {to}
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
 
         <div className="inline-flex flex-wrap  justify-center self-end w-full h-1/5">
           <LogoComponent
