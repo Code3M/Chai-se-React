@@ -15,14 +15,24 @@ function App() {
           backgroundSize: "cover",
         }}
       >
-        <div id="converterfield" className="inline-flex flex-wrap flex-col  rounded-3xl">
-          <h1 className="self-center mb-16">Currency converter</h1>
-            <div id="FromField"
-            className="inline-flex flex-wrap w-96 h-20  rounded-3xl"
-            >
-            <InputBox />
-            </div>
-          
+        <div
+          id="converterfield"
+          className="inline-flex flex-wrap flex-col  rounded-3xl "
+        >
+          <h1 className="self-center mb-10 mt-5">Currency converter</h1>
+          <div
+            id="FromField"
+            className="inline-flex flex-wrap w-96 h-20  rounded-3xl bg-white justify-evenly"
+          >
+            <InputBox lable="Form" />
+          </div>
+
+          <div
+            id="FromField"
+            className="inline-flex flex-wrap w-96 h-20  rounded-3xl bg-white justify-evenly mt-16"
+          >
+            <InputBox lable="TO" />
+          </div>
         </div>
 
         <div className="inline-flex flex-wrap  justify-center self-end w-full h-1/5">
